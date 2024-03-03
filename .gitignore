@@ -4,3 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .idea/
+*.db
+*.db*
+DodgeTheCreeps.RecordService/appsettings.Development.json
