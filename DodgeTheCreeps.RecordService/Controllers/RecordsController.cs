@@ -6,8 +6,6 @@ namespace DodgeTheCreeps.RecordService.Controllers;
 [Route("[controller]")]
 public class RecordsController : ControllerBase
 {
-    private List<UserRecord> _records = new();
-
     private readonly ILogger<RecordsController> _logger;
 
     public RecordsController(ILogger<RecordsController> logger)
@@ -16,14 +14,16 @@ public class RecordsController : ControllerBase
     }
 
     [HttpGet(Name = "GetUserRecords")]
-    public IEnumerable<UserRecord> GetUserRecords()
+    public List<UserRecord> GetUserRecords()
     {
-        return _records;
+        using var dbContext = new UserRecordsDbContext();
+        return dbContext.UserRecords.ToList();
     }
     
-    [HttpGet(Name = "SetOrUpdateUserRecord")]
+    [HttpPost(Name = "SetOrUpdateUserRecord")]
     public void SetOrUpdateUserRecord(string userName, int record)
     {
-        
+        using var dbContext = new UserRecordsDbContext();
+        dbContext.AddOrUpdateUserRecord(new UserRecord(userName, record));
     }
 }
