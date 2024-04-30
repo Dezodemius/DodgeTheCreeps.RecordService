@@ -53,4 +53,15 @@ public class RecordsController : ControllerBase
   {
     return Ok(UserRecordsDbContext.Instance.UserRecords.First(u => u.Name == name));
   }
+
+  [HttpDelete(nameof(DeleteUserRecord))]
+  public void DeleteUserRecord(string name)
+  {
+    var foundUser = UserRecordsDbContext.Instance.UserRecords.FirstOrDefault(u => u.Name == name);
+    if (foundUser != null)
+    {
+      UserRecordsDbContext.Instance.UserRecords.Remove(foundUser);
+      UserRecordsDbContext.Instance.SaveChanges();
+    }
+  }
 }
