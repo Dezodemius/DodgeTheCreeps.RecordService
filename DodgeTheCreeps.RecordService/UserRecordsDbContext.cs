@@ -4,16 +4,31 @@ namespace DodgeTheCreeps.RecordService;
 
 public class UserRecordsDbContext : DbContext
 {
-    public DbSet<UserRecord> UserRecords => Set<UserRecord>();
-
-    protected override void OnConfiguring(DbContextOptionsBuilder builder)
+  private static UserRecordsDbContext _instance;
+  private static readonly object padlock = new ();
+  public static UserRecordsDbContext Instance
+  {
+    get
     {
-        builder.UseSqlite("Filename=records.db");
+      if (_instance == null)
+      {
+        lock (padlock)
+        {
+          _instance ??= new UserRecordsDbContext();
+        }
+      }
+      return _instance;
     }
+  }
+  public DbSet<UserRecord> UserRecords => Set<UserRecord>();
 
-    public UserRecordsDbContext()
-    {
-        Database.EnsureCreated();
-    }
+  protected override void OnConfiguring(DbContextOptionsBuilder builder)
+  {
+    builder.UseSqlite("Filename=records.db");
+  }
 
+  private UserRecordsDbContext()
+  {
+    Database.EnsureCreated();
+  }
 }
