@@ -19,7 +19,7 @@ public class RecordsController : ControllerBase
   public IActionResult GetTopRecords()
   {
     return Ok(UserRecordsDbContext.Instance.UserRecords
-      .OrderByDescending(u => u.RecordValue)
+      .OrderByDescending(u => u.Score)
       .Take(10)
       .ToList());
   }
@@ -27,30 +27,30 @@ public class RecordsController : ControllerBase
   [HttpGet(nameof(GetIsUserExists))]
   public IActionResult GetIsUserExists(string name)
   {
-    var user = UserRecordsDbContext.Instance.UserRecords.FirstOrDefault(u => u.Username == name);
+    var user = UserRecordsDbContext.Instance.UserRecords.FirstOrDefault(u => u.Name == name);
     return Ok(user != null);
   }
   
   [HttpPost(nameof(UpdateUserRecord))]
-  public void UpdateUserRecord([FromBody] UserRecord userRecord)
+  public void UpdateUserRecord([FromBody] UserScore userScore)
   {
-    var foundStudent = UserRecordsDbContext.Instance.UserRecords.SingleOrDefault(r => r.Username == userRecord.Username);
-    if (foundStudent != null && foundStudent.RecordValue < userRecord.RecordValue)
-      foundStudent.RecordValue = userRecord.RecordValue;
+    var foundStudent = UserRecordsDbContext.Instance.UserRecords.SingleOrDefault(r => r.Name == userScore.Name);
+    if (foundStudent != null && foundStudent.Score < userScore.Score)
+      foundStudent.Score = userScore.Score;
 
     UserRecordsDbContext.Instance.SaveChanges();
   }
 
   [HttpPost(nameof(AddUserRecord))]
-  public void AddUserRecord([FromBody] UserRecord userRecord)
+  public void AddUserRecord([FromBody] UserScore userScore)
   {
-    UserRecordsDbContext.Instance.UserRecords.Add(new UserRecord(userRecord.Username, userRecord.RecordValue));
+    UserRecordsDbContext.Instance.UserRecords.Add(new UserScore(userScore.Name, userScore.Score));
     UserRecordsDbContext.Instance.SaveChanges();
   }
   
   [HttpGet(nameof(GetUserRecord))]
   public IActionResult GetUserRecord(string name)
   {
-    return Ok(UserRecordsDbContext.Instance.UserRecords.First(u => u.Username == name));
+    return Ok(UserRecordsDbContext.Instance.UserRecords.First(u => u.Name == name));
   }
 }

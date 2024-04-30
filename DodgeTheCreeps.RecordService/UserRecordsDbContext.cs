@@ -2,17 +2,17 @@
 
 namespace DodgeTheCreeps.RecordService;
 
-public class UserRecordsDbContext : DbContext
+public sealed class UserRecordsDbContext : DbContext
 {
-  private static UserRecordsDbContext _instance;
-  private static readonly object padlock = new ();
+  private static UserRecordsDbContext _instance = null!;
+  private static readonly object Padlock = new ();
   public static UserRecordsDbContext Instance
   {
     get
     {
       if (_instance == null)
       {
-        lock (padlock)
+        lock (Padlock)
         {
           _instance ??= new UserRecordsDbContext();
         }
@@ -20,7 +20,7 @@ public class UserRecordsDbContext : DbContext
       return _instance;
     }
   }
-  public DbSet<UserRecord> UserRecords => Set<UserRecord>();
+  public DbSet<UserScore> UserRecords => Set<UserScore>();
 
   protected override void OnConfiguring(DbContextOptionsBuilder builder)
   {
