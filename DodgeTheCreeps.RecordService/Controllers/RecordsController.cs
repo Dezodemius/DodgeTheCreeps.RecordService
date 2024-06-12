@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using DodgeTheCreeps.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -31,20 +33,16 @@ public class RecordsController : ControllerBase
     return Ok(user != null);
   }
   
-  [HttpPost(nameof(UpdateUserRecord))]
-  public void UpdateUserRecord([FromBody] UserScore userScore)
+  [HttpPost(nameof(AddOrUpdateUserRecord))]
+  public void AddOrUpdateUserRecord([FromBody] UserScore userScore)
   {
-    var foundStudent = UserRecordsDbContext.Instance.UserRecords.SingleOrDefault(r => r.Name == userScore.Name);
-    if (foundStudent != null && foundStudent.Score < userScore.Score)
-      foundStudent.Score = userScore.Score;
+    var foundedUser = UserRecordsDbContext.Instance.UserRecords.SingleOrDefault(u => u.Name == userScore.Name);
 
-    UserRecordsDbContext.Instance.SaveChanges();
-  }
+    if (foundedUser == null)
+      UserRecordsDbContext.Instance.UserRecords.Add(new UserScore(userScore.Name, userScore.Score));
+    else
+      foundedUser.Score = userScore.Score;
 
-  [HttpPost(nameof(AddUserRecord))]
-  public void AddUserRecord([FromBody] UserScore userScore)
-  {
-    UserRecordsDbContext.Instance.UserRecords.Add(new UserScore(userScore.Name, userScore.Score));
     UserRecordsDbContext.Instance.SaveChanges();
   }
   

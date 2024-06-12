@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DodgeTheCreeps.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace DodgeTheCreeps.RecordService;
 

@@ -26,4 +26,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DodgeTheCreeps.Core\DodgeTheCreeps.Core.csproj" />
+    </ItemGroup>
+
 </Project>

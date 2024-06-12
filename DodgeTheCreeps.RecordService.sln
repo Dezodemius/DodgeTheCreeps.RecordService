@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodgeTheCreeps.RecordService", "DodgeTheCreeps.RecordService\DodgeTheCreeps.RecordService.csproj", "{8B08858C-4ABE-4E3A-9F51-D13EF083A400}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodgeTheCreeps.Core", "DodgeTheCreeps.Core\DodgeTheCreeps.Core.csproj", "{CFACF758-0AC5-4FAC-8CC1-4ABB35165A9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{8B08858C-4ABE-4E3A-9F51-D13EF083A400}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B08858C-4ABE-4E3A-9F51-D13EF083A400}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B08858C-4ABE-4E3A-9F51-D13EF083A400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFACF758-0AC5-4FAC-8CC1-4ABB35165A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFACF758-0AC5-4FAC-8CC1-4ABB35165A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFACF758-0AC5-4FAC-8CC1-4ABB35165A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFACF758-0AC5-4FAC-8CC1-4ABB35165A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

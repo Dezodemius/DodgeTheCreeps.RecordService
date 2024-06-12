@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace DodgeTheCreeps.RecordService;
+namespace DodgeTheCreeps.Core;
 
 [PrimaryKey(nameof(Name))]
 public class UserScore
